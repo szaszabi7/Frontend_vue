@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <button v-on:click="toggleAdd()">Add</button>
+        <div v-if="showAdd">
+            <p>{{ meme.nev }}</p>
+            <p>Nev: <input v-model="meme.nev" type="text"></p>
+            <p>Kep: <input v-model="meme.kep" type="text"></p>
+            <button v-on:click="save()">Save</button>
+        </div>
+        <div v-for="meme in memes">
+            <p>{{ meme.nev }}</p>
+            <img v-if="meme.kep != ''" v-bind:src="meme.kep" width="70%">
+            <img v-if="meme.kep == ''" src="https://i.redd.it/b3is2etjofa51.jpg" width="70%">
+        </div>
+    </div>
+    <script>
+        var app = new Vue({
+                el: '#app',
+                data: {
+                    showAdd: true,
+                    meme: {
+                            nev: '',
+                            kep: '',
+                        },               
+                    memes: [
+                        {
+                            nev: 'Mike',
+                            kep: 'https://i.redd.it/7qalrjf53th51.png'
+                        },
+                        {
+                            nev: 'Roblosz',
+                            kep: 'https://ih1.redbubble.net/image.631940702.1954/flat,800x800,075,f.u2.jpg'
+                        },
+                        {
+                            nev: 'Walter Whide',
+                            kep: '',
+                        }
+                    ],
+                },
+                methods: {
+                    toggleAdd() {
+                        this.showAdd = !this.showAdd
+                    },
+                    save() {
+                        this.memes.push({...this.meme})
+                    }
+                },
+            })
+    </script>
+</body>
+</html>
